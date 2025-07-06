@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button } from '../ui/button'
-import Colors from '@/data/Colors'
-import { UserDetailContext } from '@/context/UserDetailContext'
+import Colors from '../../data/Colors'
+import { UserDetailContext } from '../../context/UserDetailContext'
 import { Download as LucideDownload, Rocket } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useSidebar } from '../ui/sidebar'
-import { ActionContext } from '@/context/ActionContext'
+import { ActionContext } from '../../context/ActionContext'
 
 function Header() { 
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
-    const path= usePathname();
+    const path= useRouter();
     const {toggleSidebar}=useSidebar();
     const {action,setAction}=useContext(ActionContext); 
     console.log(path?.includes('workspace')) 

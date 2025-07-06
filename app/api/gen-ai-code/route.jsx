@@ -1,4 +1,4 @@
-import { chatSessionSend } from "@/configs/AiModel";
+import { chatSessionSend } from "../../../configs/AiModel";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {

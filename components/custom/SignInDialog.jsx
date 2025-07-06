@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import Lookup from '@/data/Lookup'
+} from "../ui/dialog"
+import Lookup from '../../data/Lookup'
 import { Button } from '../ui/button'
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { UserDetailContext } from '@/context/UserDetailContext';
+import { UserDetailContext } from '../../context/UserDetailContext';
 import { useMutation, useQuery } from 'convex/react';
-import { api } from '@/convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import uuid4 from 'uuid4';
 
 function SignInDialog({ openDialog, closeDialog }) {

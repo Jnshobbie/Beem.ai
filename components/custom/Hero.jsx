@@ -5,7 +5,7 @@ import Colors from "@/data/Colors";
 import Lookup from "@/data/Lookup";
 import { ArrowRight, Link } from "lucide-react";
 import React, { useContext, useState, useEffect } from "react";
-import SignInDialog from "./SigninDialog";
+import SignInDialog from "./SignInDialog";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";

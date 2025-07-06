@@ -1,10 +1,10 @@
 "use client";
-import { MessagesContext } from '@/context/MessagesContext';
-import { UserDetailContext } from '@/context/UserDetailContext';
-import { api } from '@/convex/_generated/api';
-import Colors from '@/data/Colors';
-import Lookup from '@/data/Lookup';
-import Prompt from '@/data/Prompt';
+import { MessagesContext } from '../../context/MessagesContext';
+import { UserDetailContext } from '../../context/UserDetailContext';
+import { api } from '../../convex/_generated/api';
+import Colors from '../../data/Colors';
+import Lookup from '../../data/Lookup';
+import Prompt from '../../data/Prompt';
 import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
 import { ArrowRight, Loader2Icon } from 'lucide-react';

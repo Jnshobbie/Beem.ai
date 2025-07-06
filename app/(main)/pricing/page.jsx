@@ -1,9 +1,9 @@
 "use client"
-import { UserDetailContext } from '@/context/UserDetailContext';
-import Colors from '@/data/Colors';
-import Lookup from '@/data/Lookup'
+import { UserDetailContext } from '../../../../context/UserDetailContext';
+import Colors from '../../../../data/Colors';
+import Lookup from '../../../../data/Lookup'
 import React, { useContext, useState } from 'react' 
-import PricingModel from '@/components/custom/PricingModel';
+import PricingModel from '../../../../components/custom/PricingModel';
 
 function Pricing() {
     const {userDetail,setUserDetail}=useContext(UserDetailContext);
