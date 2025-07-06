@@ -13,6 +13,7 @@ function Header() {
     const path= usePathname();
     const {toggleSidebar}=useSidebar();
     const {action,setAction}=useContext(ActionContext); 
+    console.log(path?.includes('workspace')) 
 
     const onActionBtn=(action)=>{
         setAction({
@@ -46,7 +47,7 @@ function Header() {
                         <Button className='bg-blue-500 text-white hover:bg-blue-600'
                         onClick={()=>onActionBtn('deploy')}><Rocket />Deploy</Button>
                         {userDetail && (
-                            <Image 
+                            <Img
                                 src={userDetail?.picture} 
                                 alt='user' 
                                 width={30} 
@@ -62,4 +63,4 @@ function Header() {
     )
 }
 
-export default Header 
+export default Header
