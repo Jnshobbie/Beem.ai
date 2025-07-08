@@ -20,4 +20,4 @@ function Workspace ({ params }) {
     )
 }
 
-export default Workspace 
+export default Workspace
