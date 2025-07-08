@@ -29,10 +29,10 @@ function Provider({children}) {
             try {
                 const user = JSON.parse(localStorage.getItem('user'))
                 if (!user?.email) 
-                    router.push('/')
+                    router.push('/');
                     return;
 
-                //Fetch from database 
+                // Fetch from database
                 const result = await convex.query(api.users.GetUser, {
                     email: user.email 
                 });

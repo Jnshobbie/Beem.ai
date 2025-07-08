@@ -174,4 +174,4 @@ function ChatView() {
   );
 }
 
-export default ChatView;
+export default ChatView
