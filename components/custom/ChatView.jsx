@@ -36,7 +36,7 @@ function ChatView() {
     const result = await convex.query(api.workspace.GetWorkspace, {
       workspaceId: id
     });
-    setMessages(result?.messages || []);
+    setMessages(Array.isArray(result?.messages) ? result.messages : []);
   };
 
   useEffect(() => {
@@ -55,18 +55,20 @@ function ChatView() {
         prompt: `${Prompt.CHAT_PROMPT}\n\n${messages.map(m => `${m.role}: ${m.content}`).join("\n")}`,
       });
 
-      const raw = result.data.result;
-      let aiContent = raw?.text || '[Empty response]';
+      let aiContent = result.data.result?.text || '[Empty response]';
 
       try {
-        const parsedResponse = JSON.parse(aiContent);
-        if (parsedResponse.response) {
-          aiContent = parsedResponse.response;
-        } else if (parsedResponse.text) {
-          aiContent = parsedResponse.text;
+        const parsed = JSON.parse(aiContent);
+
+        if (Array.isArray(parsed)) {
+          aiContent = parsed[0]?.response || parsed[0]?.text || aiContent;
+        } else if (parsed.response) {
+          aiContent = parsed.response;
+        } else if (parsed.text) {
+          aiContent = parsed.text;
         }
-      } catch (parseError) {
-        console.log('Response is not JSON, using as plain text');
+      } catch (err) {
+        console.log('Non-JSON response, using as plain text');
       }
 
       const aiResp = {
@@ -125,7 +127,7 @@ function ChatView() {
   return (
     <div className="relative h-[85vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll scrollbar-hide px-4">
-        {messages?.map((msg, index) => (
+        {Array.isArray(messages) && messages.map((msg, index) => (
           <div key={index}
             className="p-3 rounded-lg mb-2 flex gap-2 items-start leading-7"
             style={{ backgroundColor: Colors.CHAT_BACKGROUND }}>
@@ -148,7 +150,6 @@ function ChatView() {
         </div>}
       </div>
 
-     
       <div className="w-full max-w-3xl mx-auto px-4 py-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 bg-[#121212] rounded-3xl shadow-inner px-4 py-3 w-full transition-all duration-300 border border-neutral-700">
           <textarea
@@ -160,7 +161,6 @@ function ChatView() {
             className="flex-1 bg-transparent resize-none outline-none text-sm text-white placeholder:text-gray-400 min-h-[40px] max-h-[150px]"
           />
           <div className="flex items-center gap-2 justify-between sm:justify-end w-full sm:w-auto">
-
             {userInput && (
               <ArrowRight
                 onClick={() => onGenerate(userInput)}
@@ -174,4 +174,4 @@ function ChatView() {
   );
 }
 
-export default ChatView
+export default ChatView;
