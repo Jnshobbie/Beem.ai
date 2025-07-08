@@ -7,18 +7,18 @@ import {
   SandpackPreview,
   SandpackFileExplorer,
 } from "@codesandbox/sandpack-react";
-import Lookup from "../../data/Lookup";
-import { MessagesContext } from "../../context/MessagesContext";
+import Lookup from "@/data/Lookup";
+import { MessagesContext } from "@/context/MessagesContext";
 import axios from "axios";
-import Prompt from "../../data/Prompt";
+import Prompt from "@/data/Prompt";
 import { Loader2Icon } from "lucide-react";
 import { useConvex, useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { countToken } from "./ChatView";
-import { UserDetailContext } from "../../context/UserDetailContext";
+import { UserDetailContext } from "@/context/UserDetailContext";
 import SandpackPreviewClient from "./SandpackPreviewClient";
-import { ActionContext } from "../../context/ActionContext";
+import { ActionContext } from "@/context/ActionContext";
 
 function CodeView() {
   const { id } = useParams();

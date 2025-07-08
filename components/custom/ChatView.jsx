@@ -1,10 +1,10 @@
 "use client";
-import { MessagesContext } from '../../context/MessagesContext';
-import { UserDetailContext } from '../../context/UserDetailContext';
-import { api } from '../../convex/_generated/api';
-import Colors from '../../data/Colors';
-import Lookup from '../../data/Lookup';
-import Prompt from '../../data/Prompt';
+import { MessagesContext } from '@/context/MessagesContext';
+import { UserDetailContext } from '@/context/UserDetailContext';
+import { api } from '@/convex/_generated/api';
+import Colors from '@/data/Colors';
+import Lookup from '@/data/Lookup';
+import Prompt from '@/data/Prompt';
 import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
 import { ArrowRight, Loader2Icon } from 'lucide-react';
@@ -160,6 +160,7 @@ function ChatView() {
             className="flex-1 bg-transparent resize-none outline-none text-sm text-white placeholder:text-gray-400 min-h-[40px] max-h-[150px]"
           />
           <div className="flex items-center gap-2 justify-between sm:justify-end w-full sm:w-auto">
+
             {userInput && (
               <ArrowRight
                 onClick={() => onGenerate(userInput)}
@@ -174,4 +175,3 @@ function ChatView() {
 }
 
 export default ChatView;
-// This code defines a ChatView component that allows users to interact with an AI assistant. It fetches workspace data, manages user input, and displays messages in a chat format. The component handles AI responses, updates user tokens, and provides a text area for user input. The UI is styled with Tailwind CSS and includes features like auto-resizing text areas and loading indicators.

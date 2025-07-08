@@ -1,6 +1,6 @@
 "use client"
-import { UserDetailContext } from '../../context/UserDetailContext'
-import { api } from '../../convex/_generated/api';
+import { UserDetailContext } from '@/context/UserDetailContext'
+import { api } from '@/convex/_generated/api';
 import { useConvex } from 'convex/react';
 import React, { useContext, useEffect, useState } from 'react'
 import { useSidebar } from '../ui/sidebar';

@@ -1,18 +1,18 @@
 import Image from 'next/image'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Button } from '../ui/button'
-import Colors from '../../data/Colors'
-import { UserDetailContext } from '../../context/UserDetailContext'
+import Colors from '@/data/Colors'
+import { UserDetailContext } from '@/context/UserDetailContext'
 import { Download as LucideDownload, Rocket } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useSidebar } from '../ui/sidebar'
-import { ActionContext } from '../../context/ActionContext'
+import { ActionContext } from '@/context/ActionContext'
 
 function Header() { 
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
-    const path= useRouter();
+    const path= usePathname();
     const {toggleSidebar}=useSidebar();
-    const {action,setAction}=useContext(ActionContext); 
+    const {action,setAction}=useContext(ActionContext);  
     console.log(path?.includes('workspace')) 
 
     const onActionBtn=(action)=>{
@@ -47,7 +47,7 @@ function Header() {
                         <Button className='bg-blue-500 text-white hover:bg-blue-600'
                         onClick={()=>onActionBtn('deploy')}><Rocket />Deploy</Button>
                         {userDetail && (
-                            <Img
+                            <Image 
                                 src={userDetail?.picture} 
                                 alt='user' 
                                 width={30} 
@@ -63,4 +63,4 @@ function Header() {
     )
 }
 
-export default Header
+export default Header 

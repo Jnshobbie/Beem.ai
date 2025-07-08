@@ -1,5 +1,5 @@
-import ChatView from '../../../../components/custom/ChatView'
-import CodeView from '../../../../components/custom/CodeView' 
+import ChatView from '@/components/custom/ChatView'
+import CodeView from '@/components/custom/CodeView' 
 import React from 'react'
 
 function Workspace ({ params }) {

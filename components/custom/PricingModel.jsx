@@ -1,4 +1,4 @@
-import Lookup from '../../data/Lookup';
+import Lookup from '@/data/Lookup';
 import React from 'react'
 import { Button } from '../ui/button';
 

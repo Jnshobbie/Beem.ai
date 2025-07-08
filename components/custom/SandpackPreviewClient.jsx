@@ -1,4 +1,4 @@
-import { ActionContext } from '../../context/ActionContext';
+import { ActionContext } from '@/context/ActionContext';
 import { SandpackPreview, useSandpack } from '@codesandbox/sandpack-react'
 import React, { useContext, useEffect, useRef } from 'react'
 
