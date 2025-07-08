@@ -7,7 +7,7 @@ import { UserDetailContext } from '@/context/UserDetailContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useConvex } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import AppSidebar from '@/components/custom/AppSidebar';
+import AppSideBar from '@/components/custom/AppSideBar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { ActionContext } from '@/context/ActionContext';
 import { useRouter } from 'next/navigation';
@@ -71,7 +71,7 @@ function Provider({children}) {
                                 <div className="flex flex-col flex-1">
                                     <Header/>  
                                     <div className="flex flex-1">
-                                        <AppSidebar/>
+                                        <AppSideBar/>
                                         <main className="flex-1">
                                             {children}
                                         </main>
