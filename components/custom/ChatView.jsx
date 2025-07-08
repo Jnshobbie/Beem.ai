@@ -3,15 +3,15 @@ import { MessagesContext } from '@/context/MessagesContext';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { api } from '@/convex/_generated/api';
 import Colors from '@/data/Colors';
-import Lookup from '@/data/Lookup';
 import Prompt from '@/data/Prompt';
 import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
-import { ArrowRight, Loader2Icon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
+import TypingText from './TypingText';
 
 export const countToken = (inputText) => {
   return inputText.trim().split(/\s+/).filter(word => word).length;
@@ -24,6 +24,7 @@ function ChatView() {
   const { messages, setMessages } = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [aiTyping, setAiTyping] = useState(false);
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
   const UpdateToken = useMutation(api.users.UpdateToken);
   const textareaRef = useRef(null);
@@ -36,7 +37,7 @@ function ChatView() {
     const result = await convex.query(api.workspace.GetWorkspace, {
       workspaceId: id
     });
-    setMessages(Array.isArray(result?.messages) ? result.messages : []);
+    setMessages(result?.messages || []);
   };
 
   useEffect(() => {
@@ -71,11 +72,7 @@ function ChatView() {
         console.log('Non-JSON response, using as plain text');
       }
 
-      const aiResp = {
-        role: 'ai',
-        content: aiContent
-      };
-
+      const aiResp = { role: 'ai', content: aiContent };
       setMessages(prev => [...prev, aiResp]);
 
       await UpdateMessages({
@@ -84,36 +81,25 @@ function ChatView() {
       });
 
       const currentToken = Number(userDetail?.token);
-      const tokensUsed = countToken(JSON.stringify(aiResp));
-      const newToken = Math.max(isNaN(currentToken) ? 50000 : currentToken - tokensUsed, 0);
+      const used = countToken(JSON.stringify(aiResp));
+      const newToken = Math.max(isNaN(currentToken) ? 50000 : currentToken - used, 0);
 
       if (userDetail?._id) {
-        await UpdateToken({
-          userId: userDetail._id,
-          token: newToken
-        });
-
-        setUserDetail(prev => ({
-          ...prev,
-          token: newToken
-        }));
+        await UpdateToken({ userId: userDetail._id, token: newToken });
+        setUserDetail(prev => ({ ...prev, token: newToken }));
       }
 
+    } catch (err) {
+      console.error("AI Error:", err);
+    } finally {
       setLoading(false);
-    } catch (error) {
-      console.error("Chat generation error:", error);
-      setLoading(false);
+      setAiTyping(false);
     }
   };
 
   const onGenerate = (input) => {
-    setMessages(prev => [
-      ...prev,
-      {
-        role: 'user',
-        content: input
-      }
-    ]);
+    if (!input.trim()) return;
+    setMessages(prev => [...prev, { role: 'user', content: input }]);
     setUserInput('');
   };
 
@@ -126,32 +112,40 @@ function ChatView() {
 
   return (
     <div className="relative h-[85vh] flex flex-col">
-      <div className="flex-1 overflow-y-scroll scrollbar-hide px-4">
-        {Array.isArray(messages) && messages.map((msg, index) => (
-          <div key={index}
-            className="p-3 rounded-lg mb-2 flex gap-2 items-start leading-7"
-            style={{ backgroundColor: Colors.CHAT_BACKGROUND }}>
-            {msg?.role === 'user' &&
-              <Image src={userDetail?.picture || "/placeholder.png"} alt="userImage"
-                width={35} height={35} className="rounded-full" />}
-            <div className="flex flex-col gap-2">
-              <ReactMarkdown>
-                {typeof msg.content === 'string'
-                  ? msg.content
-                  : msg.content?.text || '[Empty response]'}
-              </ReactMarkdown>
+      <div className="flex-1 overflow-y-scroll px-4 py-2 scrollbar-hide space-y-4">
+        {messages?.map((msg, index) => (
+          <div key={index} className="bg-[#121212] p-4 rounded-xl shadow border border-neutral-800 flex gap-3 items-start">
+            {msg.role === 'user' && (
+              <Image
+                src={userDetail?.picture || "/placeholder.png"}
+                alt="user"
+                width={35}
+                height={35}
+                className="rounded-full"
+              />
+            )}
+            <div className="flex-1 text-sm text-white whitespace-pre-wrap leading-relaxed">
+              {msg.role === 'ai' ? (
+                <TypingText text={typeof msg.content === 'string' ? msg.content : msg.content?.text || '[Empty response]'} />
+              ) : (
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              )}
             </div>
           </div>
         ))}
-        {loading && <div className="p-3 rounded-lg mb-2 flex gap-2 items-center"
-          style={{ backgroundColor: Colors.CHAT_BACKGROUND }}>
-          <Loader2Icon className="animate-spin" />
-          <h2>Generating response...</h2>
-        </div>}
+
+        {aiTyping && (
+          <div className="p-4 rounded-xl flex items-center gap-2 bg-[#121212] border border-neutral-800">
+            <span className="text-sm text-white font-mono">Beem is typinp</span>
+            <span className="animate-bounce text-white">.</span>
+            <span className="animate-bounce delay-150 text-white">.</span>
+            <span className="animate-bounce delay-300 text-white">.</span>
+          </div>
+        )}
       </div>
 
       <div className="w-full max-w-3xl mx-auto px-4 py-4">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 bg-[#121212] rounded-3xl shadow-inner px-4 py-3 w-full transition-all duration-300 border border-neutral-700">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 bg-[#121212] rounded-3xl shadow-inner px-4 py-3 w-full border border-neutral-700">
           <textarea
             ref={textareaRef}
             placeholder="Ask Beem your AI engineer..."
