@@ -113,7 +113,7 @@ function ChatView() {
   return (
     <div className="relative h-[85vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll px-4 py-2 scrollbar-hide space-y-4">
-        {messages?.map((msg, index) => (
+         {Array.isArray(messages) && messages.map((msg, index) => (
           <div key={index} className="bg-[#121212] p-4 rounded-xl shadow border border-neutral-800 flex gap-3 items-start">
             {msg.role === 'user' && (
               <Image
