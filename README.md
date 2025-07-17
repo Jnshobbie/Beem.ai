@@ -7,7 +7,7 @@
 
 ## 📌 Project Overview
 
-**Beem** an AI-powered web application built as the final project for Harvard's CS50 course.  
+**Beem** an AI-powered web application built was a final project for Harvard's CS50 course.  
 Its primary purpose is to help non-technical users interact with an artificial intelligence system 
 that assists them in generating code, answering questions, and facilitating productive conversations 
 related to software development and AI. Inspired by tools like **ChatGPT** and **Lovable.dev**, Beem 
@@ -85,36 +85,6 @@ To simulate real-world limitations (like API quotas), each user has a token budg
 - **Custom Avatars**: Allow users to upload or generate their own visual identity.
 - **Voice Input**: Add voice-to-text functionality for hands-free AI interactions.
 - **App Store Availability**: Plan to launch as a native app to make Beem available beyond the web.
-
----
-
-## Final Thoughts
-
-Building **Beem** has been one of the most exciting and educational experiences of my programming journey.  
-It challenged me to dive deep into front-end and back-end integration, work with AI APIs, and understand 
-real-world product development workflows.
-
-I've learned how to:
-- Use and manage React contexts effectively.
-- Integrate AI generation workflows using API calls.
-- Design responsive, user-friendly UIs using Tailwind CSS.
-- Persist and manage state with Convex in real time.
-- Debug and improve application performance while staying user-centered.
-
-This project not only strengthened my technical abilities but also inspired me to consider 
-turning **Beem into a real startup**. It stands as proof of what I've learned in CS50—and 
-what I can build beyond it.
-
----
-
-##  Thank You CS50!
-
-This course was a gateway to something bigger. Thank you for the challenge, support, and opportunity from the CS50 staff 
-this project truly challenged me build something i'm truly proud of.
-
----
-
-**Built with ❤️ for Harvard CS50 and the developer community**
 
 ---
 

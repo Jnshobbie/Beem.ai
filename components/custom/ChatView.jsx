@@ -113,7 +113,7 @@ function ChatView() {
   return (
     <div className="relative h-[85vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll px-4 py-2 scrollbar-hide space-y-4">
-         {Array.isArray(messages) && messages.map((msg, index) => (
+        {Array.isArray(messages) && messages.map((msg, index) => (
           <div key={index} className="bg-[#121212] p-4 rounded-xl shadow border border-neutral-800 flex gap-3 items-start">
             {msg.role === 'user' && (
               <Image
@@ -136,12 +136,15 @@ function ChatView() {
 
         {aiTyping && (
           <div className="p-4 rounded-xl flex items-center gap-2 bg-[#121212] border border-neutral-800">
-            <span className="text-sm text-white font-mono">Beem is typinp</span>
-            <span className="animate-bounce text-white">.</span>
-            <span className="animate-bounce delay-150 text-white">.</span>
-            <span className="animate-bounce delay-300 text-white">.</span>
+            <span className="text-sm text-white font-mono">Beem is typing</span>
+            <div className="dot-typing">
+              <span className="text-white">.</span>
+              <span className="text-white">.</span>
+              <span className="text-white">.</span>
+            </div>
           </div>
-        )}
+        )} 
+
       </div>
 
       <div className="w-full max-w-3xl mx-auto px-4 py-4">
